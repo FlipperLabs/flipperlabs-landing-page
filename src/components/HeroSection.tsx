@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Building2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -31,18 +32,24 @@ const HeroSection = () => {
           <Button 
             size="lg" 
             className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-primary transition-smooth group px-8 py-4 text-lg"
+            asChild
           >
-            Our Companies
-            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-smooth" />
+            <Link to="/apps">
+              Our Apps
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-smooth" />
+            </Link>
           </Button>
           
           <Button 
             variant="outline" 
             size="lg"
             className="border-border hover:bg-secondary hover:border-primary text-foreground transition-smooth px-8 py-4 text-lg"
+            asChild
           >
-            Connect With Us
-            <ArrowRight className="ml-2 w-5 h-5" />
+            <Link to="/contact">
+              Connect With Us
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
           </Button>
         </div>
 
