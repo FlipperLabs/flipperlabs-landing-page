@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, MessageSquare, Building2 } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 
 const Contact = () => {
   return (
@@ -30,25 +30,6 @@ const Contact = () => {
                 <CardHeader>
                   <div className="flex items-center space-x-3">
                     <div className="p-2 bg-primary/10 rounded-lg text-primary">
-                      <Building2 className="w-5 h-5" />
-                    </div>
-                    <CardTitle className="text-lg">Partnership</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    Interested in building a SaaS company together?
-                  </p>
-                  <Button variant="outline" size="sm" className="w-full">
-                    partners@flipperlabs.com
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card/50 backdrop-blur-sm border-border">
-                <CardHeader>
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-primary/10 rounded-lg text-primary">
                       <MessageSquare className="w-5 h-5" />
                     </div>
                     <CardTitle className="text-lg">General Inquiry</CardTitle>
@@ -60,25 +41,6 @@ const Contact = () => {
                   </p>
                   <Button variant="outline" size="sm" className="w-full">
                     hello@flipperlabs.com
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card/50 backdrop-blur-sm border-border">
-                <CardHeader>
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-primary/10 rounded-lg text-primary">
-                      <Mail className="w-5 h-5" />
-                    </div>
-                    <CardTitle className="text-lg">Press & Media</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    Media inquiries and press releases
-                  </p>
-                  <Button variant="outline" size="sm" className="w-full">
-                    press@flipperlabs.com
                   </Button>
                 </CardContent>
               </Card>
