@@ -67,10 +67,12 @@ export default {
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
 				'gradient-subtle': 'var(--gradient-subtle)',
-				'gradient-hero': 'var(--gradient-hero)'
+				'gradient-hero': 'var(--gradient-hero)',
+				'gradient-ice': 'var(--gradient-ice)'
 			},
 			boxShadow: {
 				'primary': 'var(--shadow-primary)',
+				'ice': 'var(--shadow-ice)',
 				'elegant': 'var(--shadow-lg)'
 			},
 			fontFamily: {

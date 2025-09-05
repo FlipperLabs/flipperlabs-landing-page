@@ -6,38 +6,60 @@ const Navigation = () => {
   const location = useLocation();
 
   const navItems = [
-    { name: "Home", href: "/" },
-    { name: "Apps", href: "/apps" },
-    { name: "Team", href: "/team" },
-    { name: "Contact", href: "/contact" },
+    { name: "Home", href: "#home", id: "home" },
+    { name: "Apps", href: "#apps", id: "apps" },
+    { name: "Contact", href: "#contact", id: "contact" },
   ];
+
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
+  const handleLogoClick = () => {
+    const element = document.getElementById('home');
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
+          <button 
+            onClick={handleLogoClick}
+            className="flex items-center space-x-2 group cursor-pointer"
+          >
             <div className="text-2xl font-bold font-heading text-foreground group-hover:text-primary transition-smooth">
               flipperlabs
             </div>
-          </Link>
+          </button>
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <Link
+              <a
                 key={item.name}
-                to={item.href}
+                href={item.href}
+                onClick={(e) => handleSmoothScroll(e, item.id)}
                 className={cn(
-                  "text-sm font-medium transition-smooth hover:text-primary",
-                  location.pathname === item.href
-                    ? "text-primary"
-                    : "text-muted-foreground"
+                  "text-sm font-medium transition-smooth hover:text-primary cursor-pointer",
+                  "text-muted-foreground"
                 )}
               >
                 {item.name}
-              </Link>
+              </a>
             ))}
           </div>
 

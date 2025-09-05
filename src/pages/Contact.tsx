@@ -1,100 +1,121 @@
 import Navigation from "@/components/Navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { MessageSquare } from "lucide-react";
 
 const Contact = () => {
   return (
-    <div className="min-h-screen bg-gradient-hero">
+    <div className="min-h-screen bg-gradient-hero flex flex-col">
       <Navigation />
       
-      <main className="pt-24 pb-16 px-6">
-        <div className="container mx-auto max-w-4xl">
+      <main className="flex-1 pt-24 pb-16 px-6">
+        <div className="container mx-auto max-w-6xl">
           {/* Header */}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold font-heading mb-6 text-foreground">
-              Get In Touch
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Have an idea? Want to partner? Let's build something amazing together.
+          <div className="text-center mb-12">
+            <p className="text-sm font-medium text-muted-foreground mb-4 tracking-wider uppercase">
+              CONNECT
             </p>
+            <h1 className="text-4xl md:text-5xl font-bold font-heading text-foreground">
+              Let's build together
+            </h1>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Contact Options */}
-            <div className="space-y-6">
-              <Card className="bg-card/50 backdrop-blur-sm border-border">
-                <CardHeader>
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-primary/10 rounded-lg text-primary">
-                      <MessageSquare className="w-5 h-5" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            {/* Contact Form */}
+            <div>
+              <Card className="bg-card backdrop-blur-sm border-border shadow-lg">
+                <CardContent className="p-8">
+                  <h2 className="text-xl font-semibold mb-6 text-foreground">
+                    Send us a message
+                  </h2>
+                  
+                  <form className="space-y-6">
+                    <div>
+                      <Input 
+                        placeholder="Your name" 
+                        className="bg-background border-input text-foreground placeholder:text-muted-foreground"
+                      />
                     </div>
-                    <CardTitle className="text-lg">General Inquiry</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    Questions about our companies or approach?
-                  </p>
-                  <Button variant="outline" size="sm" className="w-full">
-                    hello@flipperlabs.com
-                  </Button>
+                    
+                    <div>
+                      <Input 
+                        type="email" 
+                        placeholder="Your email" 
+                        className="bg-background border-input text-foreground placeholder:text-muted-foreground"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Textarea 
+                        placeholder="Your message"
+                        className="bg-background border-input text-foreground placeholder:text-muted-foreground min-h-[120px] resize-none"
+                      />
+                    </div>
+                    
+                    <Button 
+                      className="w-full bg-primary hover:bg-primary-hover text-primary-foreground transition-smooth"
+                      size="lg"
+                    >
+                      Send message
+                    </Button>
+                  </form>
                 </CardContent>
               </Card>
             </div>
 
-            {/* Contact Form */}
-            <div className="lg:col-span-2">
-              <Card className="bg-card/50 backdrop-blur-sm border-border">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-heading">Send us a message</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Name</Label>
-                      <Input id="name" placeholder="Your name" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="your@email.com" />
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="company">Company (Optional)</Label>
-                    <Input id="company" placeholder="Your company" />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
-                    <Input id="subject" placeholder="What's this about?" />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <Textarea 
-                      id="message" 
-                      placeholder="Tell us about your idea, question, or how we can help..."
-                      className="min-h-[120px]"
-                    />
-                  </div>
-                  
-                  <Button 
-                    className="w-full bg-primary hover:bg-primary-hover text-primary-foreground shadow-primary transition-smooth"
-                    size="lg"
+            {/* Partner Information */}
+            <div className="flex flex-col justify-center">
+              <div className="space-y-8">
+                <div>
+                  <h2 className="text-xl font-semibold mb-4 text-foreground">
+                    Looking to partner?
+                  </h2>
+                  <p className="text-muted-foreground leading-relaxed">
+                    If you're building something cool, we'd love to hear from you. Our main focus is on consumer AI companies.
+                  </p>
+                </div>
+                
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground mb-2 tracking-wider uppercase">
+                    EMAIL US
+                  </p>
+                  <a 
+                    href="mailto:hello@flipperlabs.com" 
+                    className="text-primary hover:text-primary-hover transition-smooth font-medium"
                   >
-                    Send Message
-                  </Button>
-                </CardContent>
-              </Card>
+                    hello@flipperlabs.com
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </main>
+      
+      {/* Footer */}
+      <footer className="border-t border-border bg-background/50 backdrop-blur-sm">
+        <div className="container mx-auto px-6 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div className="flex items-center">
+              <span className="text-lg font-bold font-heading text-foreground">
+                flipperlabs
+              </span>
+            </div>
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
+              <span className="text-sm text-muted-foreground">
+                Building the future of consumer AI.
+              </span>
+              <a 
+                href="mailto:hello@flipperlabs.com" 
+                className="text-sm text-primary hover:text-primary-hover transition-smooth"
+              >
+                hello@flipperlabs.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
