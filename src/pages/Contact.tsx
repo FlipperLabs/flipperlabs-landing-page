@@ -81,10 +81,10 @@ const Contact = () => {
                     EMAIL US
                   </p>
                   <a 
-                    href="mailto:hello@flipperlabs.com" 
+                    href="mailto:hello@flipperlabs.app" 
                     className="text-primary hover:text-primary-hover transition-smooth font-medium"
                   >
-                    hello@flipperlabs.com
+                    hello@flipperlabs.app
                   </a>
                 </div>
               </div>
@@ -107,10 +107,10 @@ const Contact = () => {
                 Building the future of consumer AI.
               </span>
               <a 
-                href="mailto:hello@flipperlabs.com" 
+                href="mailto:hello@flipperlabs.app" 
                 className="text-sm text-primary hover:text-primary-hover transition-smooth"
               >
-                hello@flipperlabs.com
+                hello@flipperlabs.app
               </a>
             </div>
           </div>

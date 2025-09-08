@@ -178,10 +178,10 @@ const Index = () => {
                     EMAIL US
                   </p>
                   <a 
-                    href="mailto:hello@flipperlabs.com" 
+                    href="mailto:hello@flipperlabs.app" 
                     className="text-primary hover:text-primary-hover transition-smooth font-medium text-sm sm:text-base break-all"
                   >
-                    hello@flipperlabs.com
+                    hello@flipperlabs.app
                   </a>
                 </div>
               </div>
@@ -204,10 +204,10 @@ const Index = () => {
                 Building the future of consumer AI.
               </span>
               <a 
-                href="mailto:hello@flipperlabs.com" 
+                href="mailto:hello@flipperlabs.app" 
                 className="text-sm text-primary hover:text-primary-hover transition-smooth break-all"
               >
-                hello@flipperlabs.com
+                hello@flipperlabs.app
               </a>
             </div>
           </div>
