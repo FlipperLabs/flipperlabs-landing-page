@@ -36,7 +36,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send email to flipperlabs
     const emailResponse = await resend.emails.send({
-      from: "FlipperLabs Contact <onboarding@resend.dev>",
+      from: "FlipperLabs Contact <hello@message.flipperlabs.app>",
       to: ["hello@flipperlabs.app"],
       subject: `New contact form submission from ${name}`,
       html: `
