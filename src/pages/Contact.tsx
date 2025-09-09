@@ -3,8 +3,65 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Message sent!",
+        description: "Thank you for your message. We'll get back to you soon.",
+      });
+
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error: any) {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <div className="min-h-screen bg-gradient-hero flex flex-col">
       <Navigation />
@@ -30,34 +87,48 @@ const Contact = () => {
                     Send us a message
                   </h2>
                   
-                  <form className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
                       <Input 
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
                         placeholder="Your name" 
                         className="bg-background border-input text-foreground placeholder:text-muted-foreground"
+                        required
                       />
                     </div>
                     
                     <div>
                       <Input 
+                        name="email"
                         type="email" 
+                        value={formData.email}
+                        onChange={handleInputChange}
                         placeholder="Your email" 
                         className="bg-background border-input text-foreground placeholder:text-muted-foreground"
+                        required
                       />
                     </div>
                     
                     <div>
                       <Textarea 
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
                         placeholder="Your message"
                         className="bg-background border-input text-foreground placeholder:text-muted-foreground min-h-[120px] resize-none"
+                        required
                       />
                     </div>
                     
                     <Button 
+                      type="submit"
+                      disabled={isSubmitting}
                       className="w-full bg-primary hover:bg-primary-hover text-primary-foreground transition-smooth"
                       size="lg"
                     >
-                      Send message
+                      {isSubmitting ? "Sending..." : "Send message"}
                     </Button>
                   </form>
                 </CardContent>
