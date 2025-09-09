@@ -26,6 +26,7 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Form submission started', formData);
     
     if (!formData.name || !formData.email || !formData.message) {
       toast({
@@ -37,14 +38,18 @@ const Contact = () => {
     }
 
     setIsSubmitting(true);
+    console.log('Setting isSubmitting to true');
 
     try {
-      const { error } = await supabase.functions.invoke('send-contact-email', {
+      console.log('Calling supabase function with data:', formData);
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
         body: formData
       });
+      console.log('Supabase function response:', { data, error });
 
       if (error) throw error;
 
+      console.log('Email sent successfully');
       toast({
         title: "Message sent!",
         description: "Thank you for your message. We'll get back to you soon.",
