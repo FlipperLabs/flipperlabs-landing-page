@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -41,13 +41,40 @@ const Contact = () => {
     console.log('Setting isSubmitting to true');
 
     try {
-      console.log('Calling supabase function with data:', formData);
+      console.log('Calling Supabase Edge Function with data:', formData);
+      console.log('About to invoke send-contact-email function...');
+      
+      // Try Supabase client first
       const { data, error } = await supabase.functions.invoke('send-contact-email', {
         body: formData
       });
-      console.log('Supabase function response:', { data, error });
 
-      if (error) throw error;
+      console.log('Raw Supabase response:', { data, error });
+
+      if (error) {
+        console.error('Supabase function error:', error);
+        // If Supabase client fails, try direct fetch as fallback
+        console.log('Trying direct fetch as fallback...');
+        
+        const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-contact-email`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`
+          },
+          body: JSON.stringify(formData)
+        });
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(errorText || 'Failed to send message');
+        }
+        
+        const result = await response.json();
+        console.log('Direct fetch response:', result);
+      } else {
+        console.log('Supabase function response:', data);
+      }
 
       console.log('Email sent successfully');
       toast({
@@ -60,7 +87,7 @@ const Contact = () => {
       console.error('Error sending email:', error);
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again.",
+        description: error.message || "Failed to send message. Please try again.",
         variant: "destructive"
       });
     } finally {

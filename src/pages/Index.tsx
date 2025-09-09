@@ -6,8 +6,77 @@ import { Code2, Sparkles, Users, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Form submission started', formData);
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    console.log('Setting isSubmitting to true');
+
+    try {
+      console.log('Calling Supabase Edge Function with data:', formData);
+      
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData
+      });
+
+      console.log('Raw Supabase response:', { data, error });
+
+      if (error) {
+        console.error('Supabase function error:', error);
+        throw new Error(error.message || 'Failed to send message');
+      }
+
+      console.log('Supabase function response:', data);
+
+      console.log('Email sent successfully');
+      toast({
+        title: "Message sent!",
+        description: "Thank you for your message. We'll get back to you soon.",
+      });
+
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error: any) {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to send message. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -127,34 +196,48 @@ const Index = () => {
                     Send us a message
                   </h3>
                   
-                  <form className="space-y-4 sm:space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                     <div>
                       <Input 
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
                         placeholder="Your name" 
                         className="bg-background border-input text-foreground placeholder:text-muted-foreground"
+                        required
                       />
                     </div>
                     
                     <div>
                       <Input 
+                        name="email"
                         type="email" 
+                        value={formData.email}
+                        onChange={handleInputChange}
                         placeholder="Your email" 
                         className="bg-background border-input text-foreground placeholder:text-muted-foreground"
+                        required
                       />
                     </div>
                     
                     <div>
                       <Textarea 
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
                         placeholder="Your message"
                         className="bg-background border-input text-foreground placeholder:text-muted-foreground min-h-[100px] sm:min-h-[120px] resize-none"
+                        required
                       />
                     </div>
                     
                     <Button 
+                      type="submit"
+                      disabled={isSubmitting}
                       className="w-full bg-primary hover:bg-primary-hover text-primary-foreground transition-smooth"
                       size="lg"
                     >
-                      Send message
+                      {isSubmitting ? "Sending..." : "Send message"}
                     </Button>
                   </form>
                 </CardContent>
