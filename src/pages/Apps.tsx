@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 
 const Apps = () => {
   return (
-    <div className="min-h-screen bg-gradient-hero">
+    <div className="min-h-screen bg-gradient-hero flex flex-col">
       <Navigation />
       
-      <main className="pt-24 pb-16 px-6">
+      <main className="flex-1 pt-24 pb-16 px-6">
         <div className="container mx-auto max-w-6xl">
           {/* Header */}
           <div className="text-center mb-16">
@@ -95,6 +95,30 @@ const Apps = () => {
           </div>
         </div>
       </main>
+      
+      {/* Footer */}
+      <footer className="border-t border-border bg-background/50 backdrop-blur-sm">
+        <div className="container mx-auto px-6 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div className="flex items-center">
+              <span className="text-lg font-bold font-heading text-foreground">
+                flipperlabs
+              </span>
+            </div>
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
+              <span className="text-sm text-muted-foreground">
+                Building the future of consumer AI.
+              </span>
+              <a 
+                href="mailto:hello@flipperlabs.app" 
+                className="text-sm text-primary hover:text-primary-hover transition-smooth"
+              >
+                hello@flipperlabs.app
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
