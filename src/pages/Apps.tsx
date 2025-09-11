@@ -35,7 +35,7 @@ const Apps = () => {
                         <Code2 className="w-8 h-8" />
                       </div>
                       <div>
-                        <CardTitle className="text-3xl font-heading mb-2">Dev Perspective</CardTitle>
+                        <CardTitle className="text-3xl font-light tracking-tight mb-2">Dev Perspective</CardTitle>
                         <div className="flex items-center space-x-3">
                           <Badge variant="secondary" className="bg-primary/10 text-primary">
                             Active Development

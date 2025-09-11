@@ -105,7 +105,7 @@ const Contact = () => {
             <p className="text-sm font-medium text-muted-foreground mb-4 tracking-wider uppercase">
               CONNECT
             </p>
-            <h1 className="text-4xl md:text-5xl font-bold font-heading text-foreground">
+            <h1 className="text-4xl md:text-6xl font-bold font-heading text-foreground">
               Let's build together
             </h1>
           </div>
